@@ -17,7 +17,9 @@ class Student(db.Model):
     subject = db.Column(db.String(100), nullable=False)
     grade = db.Column(db.String(5), nullable=False)
 
-# Home route — ✅ Fetch data from DB
+with app.app_context():
+        db.create_all()
+      
 @app.route("/")
 def home():
     students = Student.query.all()  # <-- fetch from DB
@@ -81,6 +83,5 @@ def update_student(id):
     return render_template("update_student.html", student=student)
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
+  
     app.run(debug=True)
